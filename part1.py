@@ -25,4 +25,4 @@ auth.set_access_token(access_token, access_token_secret)
  
 # Creation of the actual interface, using authentication
 api = tweepy.API(auth)
-print(api)
+print(api.user_timeline(screen_name = username, count = int(num_tweets), includeRts = False))
