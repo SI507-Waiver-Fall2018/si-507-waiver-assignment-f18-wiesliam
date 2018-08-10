@@ -17,10 +17,18 @@ num_tweets = sys.argv[2]
 
 def iterate(tagged_words, tag):
 	#print(tagged_words, tag)
+	relevant_terms = {}
 	for term in tagged_words:
 		#print(term[1])
 		if term[1][:2] == tag:
-			print(term[1])
+			#print(term[1])
+			if term[0] not in relevant_terms:
+				relevant_terms[term[0]] = 1
+			else:
+				relevant_terms[term[0]] = relevant_terms[term[0]] + 1
+
+	sorted_words = sorted(relevant_terms.items(), key = lambda x:x[1], reverse = True)
+	return sorted_words[:5]
 
 #print("username: ", username)
 #print("num_tweets: ", num_tweets)
@@ -68,16 +76,19 @@ for word in words:
 #print(no_stopwords)
 
 tagged = nltk.pos_tag(no_stopwords)
-print(tagged)
+#print(tagged)
 
-iterate(tagged, "VB")
+verbs = iterate(tagged, "VB")
+nouns = iterate(tagged, "NN")
+adjectives = iterate(tagged, "JJ")
+
 
 
 print("USER: ", username)
 print("TWEETS ANALYZED: ", num_tweets)
-print("VERBS: ")
-print("NOUNS: ")
-print("ADJECTIVES: ")
+print("VERBS: ", verbs)
+print("NOUNS: ", nouns)
+print("ADJECTIVES: ", adjectives)
 print("ORIGINAL TWEETS: ")
 print("TIMES FAVORITED (ORIGINAL TWEETS ONLY): ")
 print("TIMES RETWEETED (ORIGINAL TWEETS ONLY): ")
