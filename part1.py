@@ -45,12 +45,12 @@ auth.set_access_token(access_token, access_token_secret)
  
 # Creation of the actual interface, using authentication
 api = tweepy.API(auth)
-tweets = api.user_timeline(screen_name = username, count = int(num_tweets), includeRts = False)
+tweets = api.user_timeline(screen_name = username, count = int(num_tweets), includeRts = True)
 #print(tweets)
 #print(api.user_timeline(screen_name = username, count = int(num_tweets), includeRts = False))
 text_contents = []
 for tweet in tweets:
-	if tweet.retweeted == False:
+	if (not tweet.retweeted) and ('RT @' not in tweet.text):
 		text_contents.append(tweet.text)
 
 #print(text_contents)
@@ -89,6 +89,6 @@ print("TWEETS ANALYZED: ", num_tweets)
 print("VERBS: ", verbs)
 print("NOUNS: ", nouns)
 print("ADJECTIVES: ", adjectives)
-print("ORIGINAL TWEETS: ")
+print("ORIGINAL TWEETS: ", len(text_contents))
 print("TIMES FAVORITED (ORIGINAL TWEETS ONLY): ")
 print("TIMES RETWEETED (ORIGINAL TWEETS ONLY): ")
