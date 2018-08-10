@@ -1,6 +1,7 @@
 # these should be the only imports you need
 import tweepy
 import nltk
+nltk.download('averaged_perceptron_tagger')
 import json
 import sys
 from nltk.corpus import stopwords
@@ -50,7 +51,19 @@ for line in lines:
     tokenized = nltk.word_tokenize(line)
     words.extend(tokenized)
 
-print(words)
+#print(words)
+
+no_stopwords = []
+for word in words:
+    if word[0].isalpha():
+        if word not in stopwords:
+            no_stopwords.append(word)
+
+#print(no_stopwords)
+
+tagged = nltk.pos_tag(no_stopwords)
+print(tagged)
+
 
 print("USER: ", username)
 print("TWEETS ANALYZED: ", num_tweets)
