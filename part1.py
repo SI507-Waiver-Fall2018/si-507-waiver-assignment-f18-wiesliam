@@ -15,6 +15,12 @@ username = sys.argv[1]
 num_tweets = sys.argv[2]
 
 
+def iterate(tagged_words, tag):
+	#print(tagged_words, tag)
+	for term in tagged_words:
+		#print(term[1])
+		if term[1][:2] == tag:
+			print(term[1])
 
 #print("username: ", username)
 #print("num_tweets: ", num_tweets)
@@ -63,6 +69,8 @@ for word in words:
 
 tagged = nltk.pos_tag(no_stopwords)
 print(tagged)
+
+iterate(tagged, "VB")
 
 
 print("USER: ", username)
