@@ -90,7 +90,12 @@ for tweet in tweets:
 		retweeted_count = retweeted_count + tweet.retweet_count
 		favorited_count = favorited_count + tweet.favorite_count
 
-
+f = open("noun_data.csv", "w")
+f.write("Noun,Number\n")
+for noun in nouns:
+	f.write(noun[0] + "," + str(noun[1]))
+	f.write("\n")
+f.close()
 
 print("USER: ", username)
 print("TWEETS ANALYZED: ", num_tweets)
