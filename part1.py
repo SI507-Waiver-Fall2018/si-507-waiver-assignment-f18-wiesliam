@@ -82,6 +82,14 @@ verbs = iterate(tagged, "VB")
 nouns = iterate(tagged, "NN")
 adjectives = iterate(tagged, "JJ")
 
+retweeted_count = 0
+favorited_count = 0
+
+for tweet in tweets:
+	if (not tweet.retweeted) and ('RT @' not in tweet.text):
+		retweeted_count = retweeted_count + tweet.retweet_count
+		favorited_count = favorited_count + tweet.favorite_count
+
 
 
 print("USER: ", username)
@@ -90,5 +98,5 @@ print("VERBS: ", verbs)
 print("NOUNS: ", nouns)
 print("ADJECTIVES: ", adjectives)
 print("ORIGINAL TWEETS: ", len(text_contents))
-print("TIMES FAVORITED (ORIGINAL TWEETS ONLY): ")
-print("TIMES RETWEETED (ORIGINAL TWEETS ONLY): ")
+print("TIMES FAVORITED (ORIGINAL TWEETS ONLY): ", favorited_count)
+print("TIMES RETWEETED (ORIGINAL TWEETS ONLY): ", retweeted_count)
