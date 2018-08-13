@@ -1,3 +1,4 @@
+# wiesliam
 # these should be the only imports you need
 import sys
 import sqlite3
@@ -30,6 +31,24 @@ def list_of_employees(c, conn):
 	print("ID\tEmployee Name")
 	for Id, name in employee_dictionary.items():
 		print(str(Id) + '\t' + name)
+
+def list_of_customer_orders(c, conn, customer_id):
+	customer_order_list = []
+	c = conn.execute("SELECT OrderDate FROM [Order] JOIN Customer ON [Order].CustomerId = Customer.id WHERE Customer.id = ?", (customer_id,))
+	for entry in c:
+		customer_order_list.append(entry[0])
+	print("Order dates")
+	for order in customer_order_list:
+		print(order)
+
+def list_of_employee_orders(c, conn, employee_name):
+	employee_order_list = []
+	c = conn.execute("SELECT OrderDate FROM [Order] JOIN Employee ON [Order].EmployeeId = Employee.id WHERE Employee.LastName = ?", (employee_name,))
+	for entry in c:
+		employee_order_list.append(entry[0])
+	print("Order dates")
+	for order in employee_order_list:
+		print(order)
  
  
 def create_connection(db_file):
@@ -58,9 +77,9 @@ if __name__ == '__main__':
 	if(len(sys.argv)) == 3:
 		#print(sys.argv)
 		if sys.argv[2].startswith("cust="):
-			print(sys.argv)
+			list_of_customer_orders(c, conn, sys.argv[2].replace("cust=", ""))
 		elif sys.argv[2].startswith("emp="):
-			print(sys.argv)
+			list_of_employee_orders(c, conn, sys.argv[2].replace("emp=", ""))
 
 
 
