@@ -56,4 +56,11 @@ if __name__ == '__main__':
 
 
 	if(len(sys.argv)) == 3:
-		print(sys.argv)
+		#print(sys.argv)
+		if sys.argv[2].startswith("cust="):
+			print(sys.argv)
+		elif sys.argv[2].startswith("emp="):
+			print(sys.argv)
+
+
+
