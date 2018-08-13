@@ -17,7 +17,10 @@ def list_of_customers(c, conn):
 	for row in c:
 		customer_dict[row[0]] = row[1]
 	customer_dict = sorted(customer_dict.items(), key = lambda x:x[1])
-	print(customer_dict)
+	#print(customer_dict)
+	print("ID\tCustomer Name")
+	for customer in customer_dict:
+		print(customer[0] + '\t' + customer[1])
  
  
 def create_connection(db_file):
