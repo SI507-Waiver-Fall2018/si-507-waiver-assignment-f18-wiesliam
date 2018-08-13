@@ -13,7 +13,7 @@ from sqlite3 import Error
 
 def list_of_customers(c, conn):
 	customer_dict = {}
-	c = conn.execute("SELECT Id, CompanyName from customer")
+	c = conn.execute("SELECT Id, CompanyName FROM customer")
 	for row in c:
 		customer_dict[row[0]] = row[1]
 	customer_dict = sorted(customer_dict.items(), key = lambda x:x[1])
@@ -21,6 +21,15 @@ def list_of_customers(c, conn):
 	print("ID\tCustomer Name")
 	for customer in customer_dict:
 		print(customer[0] + '\t' + customer[1])
+
+def list_of_employees(c, conn):
+	employee_dictionary = {}
+	c = conn.execute("SELECT Id, FirstName, LastName FROM employee")
+	for entry in c:
+		employee_dictionary[entry[0]] = (entry[1] + " " + entry[2])
+	print("ID\tEmployee Name")
+	for Id, name in employee_dictionary.items():
+		print(str(Id) + '\t' + name)
  
  
 def create_connection(db_file):
@@ -41,6 +50,9 @@ if __name__ == '__main__':
 		#print(sys.argv)
 		if sys.argv[1] == "customers":
 			list_of_customers(c, conn)
+
+		elif sys.argv[1] == "employees":
+			list_of_employees(c, conn)
 
 
 	if(len(sys.argv)) == 3:
